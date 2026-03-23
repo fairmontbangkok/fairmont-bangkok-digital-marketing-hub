@@ -436,6 +436,7 @@ function toggleTask(el){
   document.getElementById('prog-label').textContent=done+' / '+all+' complete';
   document.getElementById('kpi-pct').textContent=pct+'%';
   document.getElementById('kpi-count').textContent=done+' of '+all;
+  saveState();
 }
 
 /* ── COPY ── */
@@ -507,6 +508,7 @@ function trkSet(btn){
   var ki=trkKey(TRK_WEEK,i);
   TRK_STATE[ki]=(TRK_STATE[ki]===v)?'':v;
   trkRender();
+  saveState();
 }
 
 function trkWeek(w){
@@ -519,6 +521,7 @@ function trkWeek(w){
     tabs[t].style.borderColor=active?'#0a0a0a':'var(--border2)';
   }
   trkRender();
+  saveState();
 }
 
 function trkCalc(){
@@ -667,6 +670,58 @@ new Chart(document.getElementById('radarChart'),{type:'radar',data:{labels:['Tit
 
 new Chart(document.getElementById('trendChart'),{type:'line',data:{labels:['Oct 25','Nov 25','Dec 25','Jan 26','Feb 26','Mar 26'],datasets:[{label:'Mentions',data:[0,0,0,0,3,14],borderColor:'#378ADD',backgroundColor:'rgba(55,138,221,0.06)',borderWidth:2,pointRadius:3,fill:true,tension:0.4},{label:'Citations',data:[0,0,0,0,1,5],borderColor:'#1D9E75',backgroundColor:'transparent',borderWidth:2,pointRadius:3,tension:0.4},{label:'Cited pages',data:[0,0,0,0,1,3],borderColor:'#D85A30',backgroundColor:'transparent',borderWidth:1.5,pointRadius:3,tension:0.4,borderDash:[4,3]}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{mode:'index',intersect:false}},scales:{x:{ticks:{color:'#7f7f7f',font:{size:10,family:'Montserrat'}},grid:{display:false}},y:{ticks:{color:'#7f7f7f',font:{size:10,family:'Montserrat'},stepSize:5},grid:{color:'rgba(128,128,128,0.1)'},min:0,max:20}}}});
 
+/* ── LOCAL STORAGE PERSISTENCE ── */
+function saveState(){
+  try{
+    localStorage.setItem('fbk_trk', JSON.stringify(TRK_STATE));
+    localStorage.setItem('fbk_trk_week', TRK_WEEK);
+    var tasks=[];
+    document.querySelectorAll('.action-row').forEach(function(r,i){
+      tasks.push(r.classList.contains('done')?'1':'0');
+    });
+    localStorage.setItem('fbk_tasks', tasks.join(','));
+  }catch(e){}
+}
+
+function loadState(){
+  try{
+    var trk=localStorage.getItem('fbk_trk');
+    if(trk) TRK_STATE=JSON.parse(trk);
+    var wk=localStorage.getItem('fbk_trk_week');
+    if(wk){
+      TRK_WEEK=parseInt(wk);
+      var tabs=document.querySelectorAll('#trk-week-tabs button');
+      for(var t=0;t<tabs.length;t++){
+        var active=parseInt(tabs[t].getAttribute('data-w'))===TRK_WEEK;
+        tabs[t].style.background=active?'#0a0a0a':'var(--surface)';
+        tabs[t].style.color=active?'#fff':'var(--text)';
+        tabs[t].style.borderColor=active?'#0a0a0a':'var(--border2)';
+      }
+    }
+    var tasks=localStorage.getItem('fbk_tasks');
+    if(tasks){
+      var arr=tasks.split(',');
+      document.querySelectorAll('.action-row').forEach(function(r,i){
+        if(arr[i]==='1'){
+          r.classList.add('done');
+          r.querySelector('.chk').classList.add('on');
+        }
+      });
+      var all=document.querySelectorAll('.action-row').length;
+      var done=document.querySelectorAll('.action-row.done').length;
+      var pct=Math.round(done/all*100);
+      var pf=document.getElementById('prog-fill');
+      var pl=document.getElementById('prog-label');
+      var kp=document.getElementById('kpi-pct');
+      var kc=document.getElementById('kpi-count');
+      if(pf)pf.style.width=pct+'%';
+      if(pl)pl.textContent=done+' / '+all+' complete';
+      if(kp)kp.textContent=pct+'%';
+      if(kc)kc.textContent=done+' of '+all;
+    }
+  }catch(e){}
+}
+
 /* ── INIT ── */
 renderTopics(performing);
 renderPrompts('discovery','prompts-discovery');
@@ -675,6 +730,7 @@ renderPrompts('feature','prompts-feature');
 renderPrompts('local','prompts-local');
 renderPrompts('brand','prompts-brand');
 trkRender();
+loadState();
 </script>
 </body>
 </html>
