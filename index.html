@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fairmont Bangkok Sukhumvit — Weekly SEO Dashboard</title>
+<title>Fairmont Bangkok Sukhumvit — Digital Marketing Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
@@ -118,16 +118,36 @@ body{font-family:'Montserrat',system-ui,sans-serif;background:var(--bg);color:va
 .priority-watch{font-size:10px;padding:2px 7px;border-radius:10px;font-weight:700;background:#e6f1fb;color:#0c447c}
 .footer{text-align:center;font-size:10px;color:var(--t3);margin-top:24px;padding:16px 0;border-top:0.5px solid var(--border);letter-spacing:1px}
 @media(max-width:768px){.two-col,.suggest-grid,.audit-grid,.llm-bottom-row,.llm-top-row{grid-template-columns:1fr}}
+
+.preset-btn{display:block;width:100%;text-align:left;font-size:12px;padding:7px 14px;border:none;background:none;color:var(--t2);cursor:pointer;font-family:inherit;transition:background .1s}
+.preset-btn:hover{background:var(--s2);color:var(--text)}
+.preset-active{font-weight:700;color:var(--text) !important;background:var(--s2)}
+.cal-day{width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:11px;border-radius:50%;border:none;background:none;cursor:pointer;font-family:inherit;color:var(--text);transition:background .1s}
+.cal-day:hover{background:var(--s2)}
+.cal-day.selected{background:#34a853;color:#fff;font-weight:700}
+.cal-day.in-range{background:#e6f7f0;color:var(--text)}
+.cal-day.today{font-weight:700;border:1.5px solid #34a853}
+.cal-day.other-month{color:var(--t3)}
+.cal-day.disabled{color:var(--border2);cursor:not-allowed}
+
+.dpre-btn{display:block;width:100%;text-align:left;font-size:12px;padding:7px 14px;border:none;background:none;color:var(--t2);cursor:pointer;font-family:inherit}
+.dpre-btn:hover{background:var(--s2);color:var(--text)}
+.dpre-active{font-weight:700;color:var(--text)!important;background:var(--s2)!important}
+.dp-day{width:100%;aspect-ratio:1;border:none;background:none;cursor:pointer;font-size:11px;border-radius:50%;font-family:inherit;color:var(--text);transition:background .1s}
+.dp-day:hover:not(:disabled){background:var(--s2)}
+.dp-day.dp-sel{background:#34a853!important;color:#fff!important;font-weight:700}
+.dp-day.dp-range{background:#e6f7f0}
+.dp-day.dp-today{font-weight:700;box-shadow:inset 0 0 0 1.5px #34a853}
+.dp-day:disabled{color:var(--border2);cursor:not-allowed}
 </style>
 </head>
 <body>
 <div class="wrap">
 
-<!-- TOPBAR -->
 <div class="topbar">
   <div>
     <div class="hotel-name">Fairmont Bangkok Sukhumvit</div>
-    <div class="hotel-sub">SEO + Media Dashboard &nbsp;·&nbsp; Week of <span id="wk-date">23 Mar 2026</span> &nbsp;·&nbsp; Updated <span id="upd-time">23 Mar 2026 12:55</span></div>
+    <div class="hotel-sub">SEO + Media Dashboard &nbsp;·&nbsp; Week of <span id="wk-date">23 Mar 2026</span> &nbsp;·&nbsp; Updated <span id="upd-time">23 Mar 2026 08:00</span></div>
   </div>
   <div class="topbar-right">
     <span class="badge badge-warn">GA4 restricted</span>
@@ -137,18 +157,16 @@ body{font-family:'Montserrat',system-ui,sans-serif;background:var(--bg);color:va
   </div>
 </div>
 
-<!-- TABS -->
 <div class="tabs">
   <button class="tab on"  onclick="showTab('seo',this)">SEO Overview</button>
   <button class="tab"     onclick="showTab('llm',this)">LLM Visibility</button>
   <button class="tab"     onclick="showTab('content',this)">Content suggestions</button>
   <button class="tab"     onclick="showTab('actions',this)">Action plan</button>
   <button class="tab"     onclick="showTab('prompts',this)">AI prompt library</button>
-  <button class="tab"     onclick="showTab('google',this)" style="color:#4285f4">Google Ads</button>
+  <button class="tab"     onclick="showTab('google',this)" style="color:#34a853">Google Ads</button>
   <button class="tab"     onclick="showTab('meta',this)" style="color:#1877f2">Meta Ads</button>
 </div>
 
-<!-- ═══ TAB: SEO OVERVIEW ═══ -->
 <div class="panel on" id="tab-seo">
   <div class="kpi-grid">
     <div class="kpi"><div class="kpi-label">Organic visibility</div><div class="kpi-value">NEW</div><div class="kpi-sub">Week 2</div><div class="kpi-delta neu">Establishing</div></div>
@@ -229,6 +247,7 @@ body{font-family:'Montserrat',system-ui,sans-serif;background:var(--bg);color:va
 </div>
 
 <!-- ═══ TAB: LLM VISIBILITY ═══ -->
+
 <div class="panel" id="tab-llm">
   <div class="llm-top-row">
     <div class="gauge-card">
@@ -337,6 +356,7 @@ body{font-family:'Montserrat',system-ui,sans-serif;background:var(--bg);color:va
 </div>
 
 <!-- ═══ TAB: CONTENT SUGGESTIONS ═══ -->
+
 <div class="panel" id="tab-content">
   <div class="suggest-grid">
     <div class="suggest-card">
@@ -371,6 +391,7 @@ body{font-family:'Montserrat',system-ui,sans-serif;background:var(--bg);color:va
 </div>
 
 <!-- ═══ TAB: ACTION PLAN ═══ -->
+
 <div class="panel" id="tab-actions">
   <div class="card">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px">
@@ -392,6 +413,7 @@ body{font-family:'Montserrat',system-ui,sans-serif;background:var(--bg);color:va
 </div>
 
 <!-- ═══ TAB: AI PROMPT LIBRARY ═══ -->
+
 <div class="panel" id="tab-prompts">
   <div class="card">
     <div class="card-title">How to use this library</div>
@@ -409,187 +431,224 @@ body{font-family:'Montserrat',system-ui,sans-serif;background:var(--bg);color:va
 </div>
 
 
-<!-- ═══ TAB: GOOGLE ADS ═══ -->
 <div class="panel" id="tab-google">
 
-  <div style="background:#e2f5ec;border:0.5px solid #9FE1CB;border-radius:8px;padding:10px 14px;margin-bottom:18px;display:flex;align-items:center;gap:8px;font-size:12px;color:#065f46">
-    <span>✓</span>
-    <span><strong>Sample data shown.</strong> Connect Supermetrics API to pull live Google Ads data daily. Contact <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2a595f5a5a45585e6a595f5a4f58474f5e5843495904494547">[email&#160;protected]</a> · team ID 975414 · trace ID 8c07043f4024d4c3d7e958217c3c55b9</span>
-  </div>
-
-  <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px">
-    <div style="width:32px;height:32px;border-radius:8px;background:#4285f4;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;flex-shrink:0">G</div>
-    <div><div style="font-size:15px;font-weight:700">Google Ads</div><div style="font-size:11px;color:var(--t3)">Account: 8859088396 (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a4c9c5d6cfc1d0cdcac38ac6c5cac3cfcbcfe4c2c5cdd6c9cbcad08ac7cbc9">[email&#160;protected]</a>) · Last 30 days</div></div>
-  </div>
-
-  <div class="kpi-grid">
-    <div class="kpi"><div class="kpi-label">Total spend</div><div class="kpi-value">฿12,071</div><div class="kpi-sub">SEM + PMAX · THB</div><div class="kpi-delta neu">Live · last 30 days</div></div>
-    <div class="kpi"><div class="kpi-label">Impressions</div><div class="kpi-value">11,642</div><div class="kpi-sub">All campaigns</div><div class="kpi-delta neu">Live · last 30 days</div></div>
-    <div class="kpi"><div class="kpi-label">Clicks</div><div class="kpi-value">364</div><div class="kpi-sub">All campaigns</div><div class="kpi-delta neu">Live · last 30 days</div></div>
-    <div class="kpi"><div class="kpi-label">CTR</div><div class="kpi-value">3.13%</div><div class="kpi-sub">Avg across campaigns</div><div class="kpi-delta up">Above 3% benchmark</div></div>
-    <div class="kpi"><div class="kpi-label">CPC</div><div class="kpi-value">฿33.16</div><div class="kpi-sub">Avg cost per click</div><div class="kpi-delta neu">MICE campaigns</div></div>
-    <div class="kpi"><div class="kpi-label">Conversions</div><div class="kpi-value">0</div><div class="kpi-sub">Check conversion tracking</div><div class="kpi-delta down">Not tracking</div></div>
-    <div class="kpi"><div class="kpi-label">ROAS</div><div class="kpi-value">3</div><div class="kpi-sub">Active campaigns</div><div class="kpi-delta neu">PMAX + SEM</div></div>
-    <div class="kpi"><div class="kpi-label">Cost / conv.</div><div class="kpi-value">MICE</div><div class="kpi-sub">All campaigns target events</div><div class="kpi-delta neu">SG + AU markets</div></div>
-  </div>
-
-  <div class="two-col">
-    <div class="card">
-      <div class="card-title">SEM — Search campaigns</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:14px">
-        <div style="background:var(--s2);border-radius:8px;padding:10px 12px;text-align:center"><div style="font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Spend</div><div style="font-size:16px;font-weight:700">฿98K</div></div>
-        <div style="background:var(--s2);border-radius:8px;padding:10px 12px;text-align:center"><div style="font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">ROAS</div><div style="font-size:16px;font-weight:700;color:#1D9E75">4.1x</div></div>
-        <div style="background:var(--s2);border-radius:8px;padding:10px 12px;text-align:center"><div style="font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Conv.</div><div style="font-size:16px;font-weight:700">52</div></div>
-        <div style="background:var(--s2);border-radius:8px;padding:10px 12px;text-align:center"><div style="font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">CPC</div><div style="font-size:16px;font-weight:700">฿23</div></div>
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px;flex-wrap:wrap">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,#4285f4 0%,#34a853 100%);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M21.35 11.1H12.18V13.83H18.69C18.36 17.64 15.19 19.27 12.19 19.27C8.36 19.27 5 16.25 5 12C5 7.9 8.2 4.73 12.19 4.73C15.29 4.73 17.1 6.7 17.1 6.7L19 4.72C19 4.72 16.56 2 12.1 2C6.42 2 2.03 6.8 2.03 12C2.03 17.05 6.16 22 12.25 22C17.6 22 21.5 18.33 21.5 12.91C21.5 11.76 21.35 11.1 21.35 11.1Z"/></svg>
       </div>
-      <table class="tbl">
-        <thead><tr><th>Campaign</th><th>Type</th><th>Impressions</th><th>Clicks</th><th>CTR</th><th>Spend</th><th>CPC</th></tr></thead>
-        <tbody>
-          <tr><td style="font-size:11px;font-weight:600">AWO-MICE Generic SG</td><td><span class="pill" style="background:#e6f7f3;color:#065f46">PMAX</span></td><td>10,711</td><td>321</td><td>3.00%</td><td>฿2,032</td><td>฿6.33</td></tr>
-          <tr><td style="font-size:11px;font-weight:600">AWO-MICE Generic AU</td><td><span class="pill" style="background:#e8f0fe;color:#1a56db">SEM</span></td><td>743</td><td>37</td><td>4.98%</td><td>฿9,141</td><td>฿247.05</td></tr>
-          <tr><td style="font-size:11px;font-weight:600">AWO-MICE Generic SG</td><td><span class="pill" style="background:#e8f0fe;color:#1a56db">SEM</span></td><td>188</td><td>6</td><td>3.19%</td><td>฿898</td><td>฿149.73</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="card">
-      <div class="card-title">PMAX — Performance Max</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:14px">
-        <div style="background:var(--s2);border-radius:8px;padding:10px 12px;text-align:center"><div style="font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Spend</div><div style="font-size:16px;font-weight:700">฿112K</div></div>
-        <div style="background:var(--s2);border-radius:8px;padding:10px 12px;text-align:center"><div style="font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">ROAS</div><div style="font-size:16px;font-weight:700;color:#1D9E75">3.8x</div></div>
-        <div style="background:var(--s2);border-radius:8px;padding:10px 12px;text-align:center"><div style="font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Conv.</div><div style="font-size:16px;font-weight:700">41</div></div>
-        <div style="background:var(--s2);border-radius:8px;padding:10px 12px;text-align:center"><div style="font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">CPC</div><div style="font-size:16px;font-weight:700">฿14</div></div>
+      <div>
+        <div style="font-size:16px;font-weight:700">Google Ads</div>
+        <div style="font-size:11px;color:var(--t3)">Account: 8859088396 &nbsp;·&nbsp; THB &nbsp;·&nbsp; <span style="color:#34a853;font-weight:600">Live via Supermetrics</span></div>
       </div>
-      <table class="tbl">
-        <thead><tr><th>Asset group</th><th>Spend</th><th>Impressions</th><th>Clicks</th><th>Conv.</th><th>ROAS</th></tr></thead>
-        <tbody>
-          <tr><td><span class="pill" style="background:#e6f7f3;color:#065f46">PMAX</span> <span style="font-size:11px;color:var(--t2)">Rooms &amp; Suites</span></td><td>฿48K</td><td>312K</td><td>3,200</td><td>19</td><td style="color:#1D9E75;font-weight:700">4.2x</td></tr>
-          <tr><td><span class="pill" style="background:#e6f7f3;color:#065f46">PMAX</span> <span style="font-size:11px;color:var(--t2)">Spa &amp; Wellness</span></td><td>฿32K</td><td>198K</td><td>2,400</td><td>12</td><td style="color:#1D9E75;font-weight:700">3.9x</td></tr>
-          <tr><td><span class="pill" style="background:#e6f7f3;color:#065f46">PMAX</span> <span style="font-size:11px;color:var(--t2)">Dining &amp; Rooftop</span></td><td>฿22K</td><td>134K</td><td>1,600</td><td>7</td><td style="color:#BA7517;font-weight:700">3.1x</td></tr>
-          <tr><td><span class="pill" style="background:#e6f7f3;color:#065f46">PMAX</span> <span style="font-size:11px;color:var(--t2)">Meetings &amp; Events</span></td><td>฿10K</td><td>68K</td><td>600</td><td>3</td><td style="color:#BA7517;font-weight:700">2.6x</td></tr>
-        </tbody>
-      </table>
     </div>
-  </div>
-
-  <div class="two-col">
-    <div class="card">
-      <div class="card-title">Google Ads spend over time</div>
-      <div style="position:relative;height:200px"><canvas id="gSpendChart"></canvas></div>
-    </div>
-    <div class="card">
-      <div class="card-title">Top search terms</div>
-      <table class="tbl">
-        <thead><tr><th>Search term</th><th>Impr.</th><th>Clicks</th><th>CTR</th><th>Conv.</th></tr></thead>
-        <tbody>
-          <tr><td style="font-weight:600">conference</td><td>21</td><td>1</td><td>4.76%</td><td>฿124</td></tr>
-          <tr><td style="font-weight:600">convention center</td><td>15</td><td>2</td><td>13.33%</td><td>฿315</td></tr>
-          <tr><td style="font-weight:600">accor events</td><td>11</td><td>1</td><td>9.09%</td><td>฿320</td></tr>
-          <tr><td style="font-weight:600">event spaces</td><td>6</td><td>1</td><td>16.67%</td><td>฿144</td></tr>
-          <tr><td style="font-weight:600">venues</td><td>13</td><td>0</td><td>0%</td><td>฿0</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <div class="card">
-    <div style="background:#0a0a0a;border-radius:8px;padding:14px 16px">
-      <div style="font-size:9px;font-weight:700;letter-spacing:2px;color:#666;text-transform:uppercase;margin-bottom:8px">Google Ads insights</div>
-      <div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:5px;font-size:11px;color:#ccc;line-height:1.5"><div style="width:4px;height:4px;border-radius:50%;background:#555;flex-shrink:0;margin-top:6px"></div><span>All 3 active campaigns are MICE/Events focused targeting SG and AU markets. No hotel booking campaigns are currently active — big opportunity.</span></div>
-      <div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:5px;font-size:11px;color:#ccc;line-height:1.5"><div style="width:4px;height:4px;border-radius:50%;background:#555;flex-shrink:0;margin-top:6px"></div><span>SEM AU campaign has highest CPC (฿247) — 39x more expensive than PMAX SG (฿6.33). Review AU bid strategy or reallocate budget.</span></div>
-      <div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:5px;font-size:11px;color:#ccc;line-height:1.5"><div style="width:4px;height:4px;border-radius:50%;background:#555;flex-shrink:0;margin-top:6px"></div><span>0 conversions tracked in 30 days — conversion tracking may not be configured. Check Google Ads conversion actions urgently.</span></div>
-      <div style="display:flex;gap:8px;align-items:flex-start;font-size:11px;color:#ccc;line-height:1.5"><div style="width:4px;height:4px;border-radius:50%;background:#555;flex-shrink:0;margin-top:6px"></div><span>Opportunity: Launch hotel booking campaigns targeting 'luxury hotel Bangkok Sukhumvit' (1,900/mo) and 'rooftop bar Bangkok' (2,400/mo) — currently no hotel ads running.</span></div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ TAB: META ADS ═══ -->
-<div class="panel" id="tab-meta">
-
-  <div style="background:#e2f5ec;border:0.5px solid #9FE1CB;border-radius:8px;padding:10px 14px;margin-bottom:18px;display:flex;align-items:center;gap:8px;font-size:12px;color:#065f46">
-    <span>✓</span>
-    <span><strong>✓ API connected</strong> · Account act_1961680314410145 · No active campaigns found in last 90 days · Data will populate once campaigns launch</span>
-  </div>
-
-  <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px">
-    <div style="width:32px;height:32px;border-radius:8px;background:#1877f2;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;flex-shrink:0">f</div>
-    <div><div style="font-size:15px;font-weight:700">Meta Ads</div><div style="font-size:11px;color:var(--t3)">Account: act_1961680314410145 · Facebook + Instagram · Last 30 days</div></div>
-  </div>
-
-  <div class="kpi-grid">
-    <div class="kpi"><div class="kpi-label">Total spend</div><div class="kpi-value">฿0</div><div class="kpi-sub">No active campaigns</div><div class="kpi-delta neu">Last 90 days</div></div>
-    <div class="kpi"><div class="kpi-label">Reach</div><div class="kpi-value">—</div><div class="kpi-sub">No data</div><div class="kpi-delta neu">—</div></div>
-    <div class="kpi"><div class="kpi-label">Impressions</div><div class="kpi-value">—</div><div class="kpi-sub">No data</div><div class="kpi-delta neu">—</div></div>
-    <div class="kpi"><div class="kpi-label">Clicks</div><div class="kpi-value">—</div><div class="kpi-sub">No data</div><div class="kpi-delta neu">—</div></div>
-    <div class="kpi"><div class="kpi-label">CTR</div><div class="kpi-value">—</div><div class="kpi-sub">No data</div><div class="kpi-delta neu">—</div></div>
-    <div class="kpi"><div class="kpi-label">CPM</div><div class="kpi-value">—</div><div class="kpi-sub">No data</div><div class="kpi-delta neu">—</div></div>
-    <div class="kpi"><div class="kpi-label">Conversions</div><div class="kpi-value">—</div><div class="kpi-sub">No data</div><div class="kpi-delta neu">—</div></div>
-    <div class="kpi"><div class="kpi-label">ROAS</div><div class="kpi-value">—</div><div class="kpi-sub">No data</div><div class="kpi-delta neu">—</div></div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">Ad set performance breakdown</div>
-    <table class="tbl">
-      <thead><tr><th>Ad set</th><th>Objective</th><th>Spend</th><th>Reach</th><th>CTR</th><th>Conv.</th><th>ROAS</th></tr></thead>
-      <tbody>
-        <tr><td style="font-weight:600">Luxury Travellers TH</td><td><span class="pill" style="background:#fef3dc;color:#92400e">Awareness</span></td><td>฿18K</td><td>92K</td><td>0.8%</td><td>—</td><td style="color:var(--t3)">N/A</td></tr>
-        <tr><td style="font-weight:600">Lookalike — Past Guests</td><td><span class="pill" style="background:#e2f5ec;color:#065f46">Conversion</span></td><td>฿22K</td><td>68K</td><td>1.8%</td><td>14</td><td style="color:#1D9E75;font-weight:700">3.2x</td></tr>
-        <tr><td style="font-weight:600">Retargeting — Website</td><td><span class="pill" style="background:#fee8e8;color:#b91c1c">Retargeting</span></td><td>฿14K</td><td>28K</td><td>2.4%</td><td>11</td><td style="color:#1D9E75;font-weight:700">3.8x</td></tr>
-        <tr><td style="font-weight:600">Interest — Travel SG/HK</td><td><span class="pill" style="background:#fef3dc;color:#92400e">Awareness</span></td><td>฿12K</td><td>62K</td><td>1.1%</td><td>4</td><td style="color:#BA7517;font-weight:700">2.1x</td></tr>
-        <tr><td style="font-weight:600">Spa &amp; Wellness Audience</td><td><span class="pill" style="background:#e2f5ec;color:#065f46">Conversion</span></td><td>฿8K</td><td>34K</td><td>1.4%</td><td>2</td><td style="color:#BA7517;font-weight:700">1.8x</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="two-col">
-    <div class="card">
-      <div class="card-title">Top performing creatives</div>
-      <table class="tbl">
-        <thead><tr><th>Creative</th><th>Format</th><th>Impr.</th><th>CTR</th><th>Conv.</th><th>CPA</th></tr></thead>
-        <tbody>
-          <tr><td style="font-weight:600">Rooftop Bar at Sunset</td><td><span class="pill pill-brand">Video</span></td><td>128K</td><td>2.1%</td><td>9</td><td style="color:#1D9E75">฿1,820</td></tr>
-          <tr><td style="font-weight:600">Fairmont Spa — Hammam</td><td><span class="pill pill-brand">Image</span></td><td>98K</td><td>1.8%</td><td>7</td><td style="color:#1D9E75">฿2,100</td></tr>
-          <tr><td style="font-weight:600">Room with City View</td><td><span class="pill pill-brand">Carousel</span></td><td>86K</td><td>1.4%</td><td>6</td><td style="color:#BA7517">฿2,480</td></tr>
-          <tr><td style="font-weight:600">Pet-Friendly Stay</td><td><span class="pill pill-brand">Image</span></td><td>62K</td><td>2.8%</td><td>5</td><td style="color:#1D9E75">฿1,640</td></tr>
-          <tr><td style="font-weight:600">Family Package — Kids</td><td><span class="pill pill-brand">Video</span></td><td>58K</td><td>1.6%</td><td>4</td><td style="color:#BA7517">฿2,900</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="card">
-      <div class="card-title">Audience — top countries</div>
-      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
-        <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span style="width:90px;flex-shrink:0;font-weight:600">Thailand</span><div style="flex:1;height:6px;background:#e8e8e8;border-radius:3px;overflow:hidden"><div style="height:100%;width:62%;background:#1877f2;border-radius:3px"></div></div><span style="min-width:32px;color:var(--t3)">62%</span></div>
-        <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span style="width:90px;flex-shrink:0;font-weight:600">Singapore</span><div style="flex:1;height:6px;background:#e8e8e8;border-radius:3px;overflow:hidden"><div style="height:100%;width:14%;background:#1877f2;border-radius:3px"></div></div><span style="min-width:32px;color:var(--t3)">14%</span></div>
-        <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span style="width:90px;flex-shrink:0;font-weight:600">Hong Kong</span><div style="flex:1;height:6px;background:#e8e8e8;border-radius:3px;overflow:hidden"><div style="height:100%;width:9%;background:#1877f2;border-radius:3px"></div></div><span style="min-width:32px;color:var(--t3)">9%</span></div>
-        <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span style="width:90px;flex-shrink:0;font-weight:600">UK</span><div style="flex:1;height:6px;background:#e8e8e8;border-radius:3px;overflow:hidden"><div style="height:100%;width:7%;background:#1877f2;border-radius:3px"></div></div><span style="min-width:32px;color:var(--t3)">7%</span></div>
-        <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span style="width:90px;flex-shrink:0;font-weight:600">Other</span><div style="flex:1;height:6px;background:#e8e8e8;border-radius:3px;overflow:hidden"><div style="height:100%;width:8%;background:#ccc;border-radius:3px"></div></div><span style="min-width:32px;color:var(--t3)">8%</span></div>
-      </div>
-      <div style="border-top:0.5px solid var(--border);padding-top:12px">
-        <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);margin-bottom:8px">Spend by placement</div>
-        <div style="display:flex;flex-direction:column;gap:8px">
-          <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span style="width:90px;flex-shrink:0;font-weight:600">IG Feed</span><div style="flex:1;height:6px;background:#e8e8e8;border-radius:3px;overflow:hidden"><div style="height:100%;width:38%;background:#E1306C;border-radius:3px"></div></div><span style="min-width:32px;color:var(--t3)">฿28K</span></div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span style="width:90px;flex-shrink:0;font-weight:600">FB Feed</span><div style="flex:1;height:6px;background:#e8e8e8;border-radius:3px;overflow:hidden"><div style="height:100%;width:30%;background:#1877f2;border-radius:3px"></div></div><span style="min-width:32px;color:var(--t3)">฿22K</span></div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span style="width:90px;flex-shrink:0;font-weight:600">IG Stories</span><div style="flex:1;height:6px;background:#e8e8e8;border-radius:3px;overflow:hidden"><div style="height:100%;width:22%;background:#833AB4;border-radius:3px"></div></div><span style="min-width:32px;color:var(--t3)">฿16K</span></div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span style="width:90px;flex-shrink:0;font-weight:600">IG Reels</span><div style="flex:1;height:6px;background:#e8e8e8;border-radius:3px;overflow:hidden"><div style="height:100%;width:11%;background:#FCAF45;border-radius:3px"></div></div><span style="min-width:32px;color:var(--t3)">฿8K</span></div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <div style="position:relative" id="ga-datepicker-wrap">
+        <button onclick="toggleDatePicker()" id="ga-range-btn" style="font-size:12px;font-weight:600;padding:7px 14px;border-radius:6px;border:0.5px solid var(--border2);background:var(--surface);color:var(--text);cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:8px;min-width:200px;justify-content:space-between">
+          <span id="ga-range-label">Last 30 days</span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 9h18M8 2v4M16 2v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div id="ga-datepicker" style="display:none;position:absolute;right:0;top:calc(100% + 6px);background:var(--surface);border:0.5px solid var(--border);border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,.12);z-index:200;width:480px">
+          <div style="display:flex">
+            <div style="width:150px;border-right:0.5px solid var(--border);padding:8px 0;flex-shrink:0">
+              <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);padding:8px 14px 6px">Presets</div>
+              <button onclick="applyPreset('last_7_days','Last 7 days')" class="dpre-btn" id="pre-last_7_days">Last 7 days</button>
+              <button onclick="applyPreset('last_14_days','Last 14 days')" class="dpre-btn" id="pre-last_14_days">Last 14 days</button>
+              <button onclick="applyPreset('last_30_days','Last 30 days')" class="dpre-btn dpre-active" id="pre-last_30_days">Last 30 days</button>
+              <button onclick="applyPreset('last_90_days','Last 90 days')" class="dpre-btn" id="pre-last_90_days">Last 90 days</button>
+              <button onclick="applyPreset('this_month','This month')" class="dpre-btn" id="pre-this_month">This month</button>
+              <button onclick="applyPreset('last_month','Last month')" class="dpre-btn" id="pre-last_month">Last month</button>
+              <button onclick="applyPreset('last_3_months','Last 3 months')" class="dpre-btn" id="pre-last_3_months">Last 3 months</button>
+              <button onclick="applyPreset('last_12_months','Last 12 months')" class="dpre-btn" id="pre-last_12_months">Last 12 months</button>
+            </div>
+            <div style="flex:1;padding:14px">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+                <button onclick="dpNav(-1)" style="width:26px;height:26px;border-radius:50%;border:0.5px solid var(--border);background:none;cursor:pointer;font-size:13px;color:var(--text);display:flex;align-items:center;justify-content:center">&#8249;</button>
+                <span style="font-size:13px;font-weight:700" id="dp-month-lbl">Mar 2026</span>
+                <button onclick="dpNav(1)" style="width:26px;height:26px;border-radius:50%;border:0.5px solid var(--border);background:none;cursor:pointer;font-size:13px;color:var(--text);display:flex;align-items:center;justify-content:center">&#8250;</button>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:1px;margin-bottom:4px">
+                <div style="font-size:10px;font-weight:600;text-align:center;color:var(--t3);padding:3px">S</div>
+                <div style="font-size:10px;font-weight:600;text-align:center;color:var(--t3);padding:3px">M</div>
+                <div style="font-size:10px;font-weight:600;text-align:center;color:var(--t3);padding:3px">T</div>
+                <div style="font-size:10px;font-weight:600;text-align:center;color:var(--t3);padding:3px">W</div>
+                <div style="font-size:10px;font-weight:600;text-align:center;color:var(--t3);padding:3px">T</div>
+                <div style="font-size:10px;font-weight:600;text-align:center;color:var(--t3);padding:3px">F</div>
+                <div style="font-size:10px;font-weight:600;text-align:center;color:var(--t3);padding:3px">S</div>
+              </div>
+              <div id="dp-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:1px"></div>
+              <div style="display:flex;gap:6px;margin-top:10px;font-size:11px;color:var(--t3)">
+                <span>From: <strong id="dp-from" style="color:var(--text)">—</strong></span>
+                <span style="margin-left:8px">To: <strong id="dp-to" style="color:var(--text)">—</strong></span>
+              </div>
+              <div style="display:flex;gap:6px;margin-top:8px;justify-content:flex-end">
+                <button onclick="dpClose()" style="font-size:11px;padding:5px 12px;border-radius:6px;border:0.5px solid var(--border2);background:none;color:var(--text);cursor:pointer;font-family:inherit">Cancel</button>
+                <button onclick="dpApply()" style="font-size:11px;font-weight:700;padding:5px 12px;border-radius:6px;border:none;background:#34a853;color:#fff;cursor:pointer;font-family:inherit">Apply</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
+  <div class="kpi-grid">
+    <div class="kpi" style="border-top:2px solid #4285f4"><div class="kpi-label">Total spend</div><div class="kpi-value">฿12,071</div><div class="kpi-sub">All campaigns · THB</div><div class="kpi-delta neu">Last 30 days</div></div>
+    <div class="kpi" style="border-top:2px solid #4285f4"><div class="kpi-label">Impressions</div><div class="kpi-value">11,642</div><div class="kpi-sub">All campaigns</div><div class="kpi-delta neu">Last 30 days</div></div>
+    <div class="kpi" style="border-top:2px solid #4285f4"><div class="kpi-label">Clicks</div><div class="kpi-value">364</div><div class="kpi-sub">All campaigns</div><div class="kpi-delta neu">Last 30 days</div></div>
+    <div class="kpi" style="border-top:2px solid #34a853"><div class="kpi-label">CTR</div><div class="kpi-value">3.13%</div><div class="kpi-sub">Avg across campaigns</div><div class="kpi-delta up">Above 3% benchmark</div></div>
+    <div class="kpi" style="border-top:2px solid #4285f4"><div class="kpi-label">Avg CPC</div><div class="kpi-value">฿33.16</div><div class="kpi-sub">Across all campaigns</div><div class="kpi-delta neu">THB</div></div>
+    <div class="kpi" style="border-top:2px solid #ea4335"><div class="kpi-label">Conversions</div><div class="kpi-value">0</div><div class="kpi-sub">No conversion tracking</div><div class="kpi-delta down">Setup required</div></div>
+    <div class="kpi" style="border-top:2px solid #ea4335"><div class="kpi-label">ROAS</div><div class="kpi-value">N/A</div><div class="kpi-sub">No conversion value</div><div class="kpi-delta down">Cannot calculate</div></div>
+    <div class="kpi" style="border-top:2px solid #fbbc04"><div class="kpi-label">Active campaigns</div><div class="kpi-value">3</div><div class="kpi-sub">PMAX + SEM · MICE</div><div class="kpi-delta neu">SG + AU markets</div></div>
+  </div>
+
   <div class="card">
-    <div style="background:#0a0a0a;border-radius:8px;padding:14px 16px">
-      <div style="font-size:9px;font-weight:700;letter-spacing:2px;color:#666;text-transform:uppercase;margin-bottom:8px">Meta Ads insights</div>
-      <div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:5px;font-size:11px;color:#ccc;line-height:1.5"><div style="width:4px;height:4px;border-radius:50%;background:#555;flex-shrink:0;margin-top:6px"></div><span>Retargeting has highest ROAS (3.8x) — expand retargeting audience size or increase budget allocation</span></div>
-      <div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:5px;font-size:11px;color:#ccc;line-height:1.5"><div style="width:4px;height:4px;border-radius:50%;background:#555;flex-shrink:0;margin-top:6px"></div><span>Pet-friendly creative CTR 2.8% — unique USP resonating well; test more pet content</span></div>
-      <div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:5px;font-size:11px;color:#ccc;line-height:1.5"><div style="width:4px;height:4px;border-radius:50%;background:#555;flex-shrink:0;margin-top:6px"></div><span>Spa & Wellness ad set underperforming (1.8x ROAS) — review audience targeting or swap creative</span></div>
-      <div style="display:flex;gap:8px;align-items:flex-start;font-size:11px;color:#ccc;line-height:1.5"><div style="width:4px;height:4px;border-radius:50%;background:#555;flex-shrink:0;margin-top:6px"></div><span>SG/HK audience strong reach — consider dedicated campaign for international luxury travellers</span></div>
+    <div class="card-title" style="color:#34a853">Campaign performance <span style="font-weight:400;color:var(--t3)">· last 30 days · live data</span></div>
+    <div style="overflow-x:auto">
+    <table class="tbl">
+      <thead><tr><th>Campaign</th><th>Type</th><th>Market</th><th>Impressions</th><th>Clicks</th><th>CTR</th><th>Spend (THB)</th><th>CPC (THB)</th><th>Conv.</th><th>ROAS</th></tr></thead>
+      <tbody>
+        <tr><td style="font-weight:600;font-size:11px">AWO-MICE Generic SG</td><td><span class="pill" style="background:#e6f7f3;color:#065f46;font-size:9px">PMAX</span></td><td>Singapore</td><td>10,711</td><td>321</td><td style="color:#34a853;font-weight:600">3.00%</td><td>฿2,032</td><td style="color:#34a853;font-weight:600">฿6.33</td><td style="color:var(--t3)">0</td><td style="color:var(--t3)">N/A</td></tr>
+        <tr><td style="font-weight:600;font-size:11px">AWO-MICE Generic AU</td><td><span class="pill" style="background:#e8f0fe;color:#1a56db;font-size:9px">SEM</span></td><td>Australia</td><td>743</td><td>37</td><td style="color:#34a853;font-weight:600">4.98%</td><td style="color:#D85A30;font-weight:600">฿9,141</td><td style="color:#D85A30;font-weight:600">฿247.05</td><td style="color:var(--t3)">0</td><td style="color:var(--t3)">N/A</td></tr>
+        <tr><td style="font-weight:600;font-size:11px">AWO-MICE Generic SG</td><td><span class="pill" style="background:#e8f0fe;color:#1a56db;font-size:9px">SEM</span></td><td>Singapore</td><td>188</td><td>6</td><td>3.19%</td><td>฿898</td><td style="color:#BA7517;font-weight:600">฿149.73</td><td style="color:var(--t3)">0</td><td style="color:var(--t3)">N/A</td></tr>
+        <tr style="background:var(--s2);font-weight:700"><td colspan="3">Total</td><td>11,642</td><td>364</td><td>3.13%</td><td>฿12,071</td><td>฿33.16</td><td>0</td><td>N/A</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title" style="color:#34a853">By device <span style="font-weight:400;color:var(--t3)">· live data</span></div>
+      <table class="tbl">
+        <thead><tr><th>Device</th><th>Impressions</th><th>Clicks</th><th>CTR</th><th>Spend</th><th>CPC</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:600">Mobile</td><td>8,007</td><td>298</td><td style="color:#34a853;font-weight:600">3.72%</td><td>฿6,170</td><td>฿20.70</td></tr>
+          <tr><td style="font-weight:600">Tablet</td><td>1,860</td><td>22</td><td style="color:#BA7517">1.18%</td><td>฿103</td><td>฿4.70</td></tr>
+          <tr><td style="font-weight:600">Desktop</td><td>1,775</td><td>44</td><td>2.48%</td><td>฿5,798</td><td style="color:#D85A30;font-weight:600">฿131.76</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:12px;display:flex;flex-direction:column;gap:7px">
+        <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--t3);margin-bottom:2px">Impression share</div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span style="width:56px;flex-shrink:0;color:var(--t2)">Mobile</span><div style="flex:1;height:6px;background:#e8e8e8;border-radius:3px;overflow:hidden"><div style="height:100%;width:69%;background:#4285f4;border-radius:3px"></div></div><span style="color:var(--t2);min-width:36px;text-align:right;font-weight:600">68.8%</span></div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span style="width:56px;flex-shrink:0;color:var(--t2)">Tablet</span><div style="flex:1;height:6px;background:#e8e8e8;border-radius:3px;overflow:hidden"><div style="height:100%;width:16%;background:#34a853;border-radius:3px"></div></div><span style="color:var(--t2);min-width:36px;text-align:right;font-weight:600">16.0%</span></div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span style="width:56px;flex-shrink:0;color:var(--t2)">Desktop</span><div style="flex:1;height:6px;background:#e8e8e8;border-radius:3px;overflow:hidden"><div style="height:100%;width:15%;background:#ea4335;border-radius:3px"></div></div><span style="color:var(--t2);min-width:36px;text-align:right;font-weight:600">15.2%</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:#34a853">By country <span style="font-weight:400;color:var(--t3)">· live data</span></div>
+      <table class="tbl">
+        <thead><tr><th>Country</th><th>Impressions</th><th>Clicks</th><th>CTR</th><th>Spend</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:600">Singapore</td><td>10,899</td><td>327</td><td>3.00%</td><td style="color:#34a853;font-weight:600">฿2,930</td></tr>
+          <tr><td style="font-weight:600">Australia</td><td>743</td><td>37</td><td style="color:#34a853;font-weight:600">4.98%</td><td style="color:#D85A30;font-weight:600">฿9,141</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:12px;display:flex;flex-direction:column;gap:7px">
+        <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--t3);margin-bottom:2px">Spend share</div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span style="width:72px;flex-shrink:0;color:var(--t2)">Australia</span><div style="flex:1;height:6px;background:#e8e8e8;border-radius:3px;overflow:hidden"><div style="height:100%;width:76%;background:#D85A30;border-radius:3px"></div></div><span style="color:#D85A30;font-weight:700;min-width:36px;text-align:right">75.7%</span></div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span style="width:72px;flex-shrink:0;color:var(--t2)">Singapore</span><div style="flex:1;height:6px;background:#e8e8e8;border-radius:3px;overflow:hidden"><div style="height:100%;width:24%;background:#4285f4;border-radius:3px"></div></div><span style="color:var(--t2);font-weight:600;min-width:36px;text-align:right">24.3%</span></div>
+      </div>
+      <div style="margin-top:10px;padding:9px 12px;background:#fef3dc;border-radius:6px;font-size:11px;color:#92400e;line-height:1.5;border-left:2px solid #fbbc04">
+        Australia uses <strong>76% of budget</strong> for only 6% of impressions. CPC ฿247 vs Singapore ฿9. Review AU bid strategy urgently.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title" style="color:#34a853">Top search terms <span style="font-weight:400;color:var(--t3)">· SEM campaigns · live data</span></div>
+    <div style="overflow-x:auto">
+    <table class="tbl">
+      <thead><tr><th>Search term</th><th>Impressions</th><th>Clicks</th><th>CTR</th><th>Cost (THB)</th><th>CPC (THB)</th></tr></thead>
+      <tbody>
+        <tr><td style="font-weight:600">convention center</td><td>15</td><td>2</td><td style="color:#34a853;font-weight:600">13.33%</td><td>฿315</td><td>฿157.74</td></tr>
+        <tr><td style="font-weight:600">event spaces</td><td>6</td><td>1</td><td style="color:#34a853;font-weight:600">16.67%</td><td>฿144</td><td>฿143.60</td></tr>
+        <tr><td style="font-weight:600">accor events</td><td>11</td><td>1</td><td>9.09%</td><td>฿320</td><td>฿320.33</td></tr>
+        <tr><td style="font-weight:600">conference</td><td>21</td><td>1</td><td>4.76%</td><td>฿124</td><td>฿123.75</td></tr>
+        <tr><td style="font-weight:600">convention centre</td><td>18</td><td>0</td><td style="color:var(--t3)">0%</td><td>฿0</td><td style="color:var(--t3)">—</td></tr>
+        <tr><td style="font-weight:600">venues</td><td>13</td><td>0</td><td style="color:var(--t3)">0%</td><td>฿0</td><td style="color:var(--t3)">—</td></tr>
+        <tr><td style="font-weight:600">venue hire</td><td>9</td><td>0</td><td style="color:var(--t3)">0%</td><td>฿0</td><td style="color:var(--t3)">—</td></tr>
+        <tr><td style="font-weight:600">conference room</td><td>7</td><td>0</td><td style="color:var(--t3)">0%</td><td>฿0</td><td style="color:var(--t3)">—</td></tr>
+        <tr><td style="font-weight:600">meeting room hire</td><td>6</td><td>0</td><td style="color:var(--t3)">0%</td><td>฿0</td><td style="color:var(--t3)">—</td></tr>
+        <tr><td style="font-weight:600">event management company</td><td>6</td><td>0</td><td style="color:var(--t3)">0%</td><td>฿0</td><td style="color:var(--t3)">—</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div style="background:#0a2e0a;border-radius:8px;padding:16px 18px">
+      <div style="font-size:9px;font-weight:700;letter-spacing:2px;color:#34a853;text-transform:uppercase;margin-bottom:12px">Google Ads insights — live data</div>
+      <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;font-size:11px;color:#ccc;line-height:1.6">
+        <div style="width:5px;height:5px;border-radius:50%;background:#34a853;flex-shrink:0;margin-top:5px"></div>
+        <span><strong style="color:#fff">All 3 campaigns are MICE/Events focused</strong> — targeting Meetings, Incentives, Conferences &amp; Exhibitions in Singapore and Australia. No hotel, spa, or dining campaigns are active.</span>
+      </div>
+      <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;font-size:11px;color:#ccc;line-height:1.6">
+        <div style="width:5px;height:5px;border-radius:50%;background:#D85A30;flex-shrink:0;margin-top:5px"></div>
+        <span><strong style="color:#fff">Australia CPC problem:</strong> AU SEM uses ฿9,141 (76% of budget) for only 37 clicks — CPC ฿247 vs PMAX Singapore ฿6. Consider switching AU to PMAX or reducing AU bids.</span>
+      </div>
+      <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;font-size:11px;color:#ccc;line-height:1.6">
+        <div style="width:5px;height:5px;border-radius:50%;background:#ea4335;flex-shrink:0;margin-top:5px"></div>
+        <span><strong style="color:#fff">Conversion tracking not configured:</strong> 0 conversions and 0 ROAS. Set up Google Ads conversion actions (Tools → Conversions) to track form submissions, calls, and enquiries.</span>
+      </div>
+      <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;font-size:11px;color:#ccc;line-height:1.6">
+        <div style="width:5px;height:5px;border-radius:50%;background:#4285f4;flex-shrink:0;margin-top:5px"></div>
+        <span><strong style="color:#fff">Mobile dominates at 68.8%</strong> of impressions. Ensure landing pages are mobile-optimised — PageSpeed mobile ~52/100 needs improvement before increasing spend.</span>
+      </div>
+      <div style="display:flex;gap:10px;align-items:flex-start;font-size:11px;color:#ccc;line-height:1.6">
+        <div style="width:5px;height:5px;border-radius:50%;background:#fbbc04;flex-shrink:0;margin-top:5px"></div>
+        <span><strong style="color:#fff">Opportunity:</strong> No hotel booking campaigns running. Launch campaigns for "luxury hotel Bangkok Sukhumvit" (1,900/mo) and "rooftop bar Bangkok" (2,400/mo) alongside MICE.</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="panel" id="tab-meta">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+    <div style="width:36px;height:36px;border-radius:9px;background:#1877f2;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+    </div>
+    <div>
+      <div style="font-size:16px;font-weight:700">Meta Ads</div>
+      <div style="font-size:11px;color:var(--t3)">Account: act_1961680314410145 &nbsp;&middot;&nbsp; Facebook + Instagram &nbsp;&middot;&nbsp; <span style="color:#1877f2;font-weight:600">Live via Supermetrics</span></div>
+    </div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi" style="border-top:2px solid #1877f2"><div class="kpi-label">Total spend</div><div class="kpi-value" style="color:var(--t3)">฿0</div><div class="kpi-sub">No active campaigns</div><div class="kpi-delta neu">Last 90 days</div></div>
+    <div class="kpi" style="border-top:2px solid #1877f2"><div class="kpi-label">Reach</div><div class="kpi-value" style="color:var(--t3)">—</div><div class="kpi-sub">No data</div><div class="kpi-delta neu">—</div></div>
+    <div class="kpi" style="border-top:2px solid #1877f2"><div class="kpi-label">Impressions</div><div class="kpi-value" style="color:var(--t3)">—</div><div class="kpi-sub">No data</div><div class="kpi-delta neu">—</div></div>
+    <div class="kpi" style="border-top:2px solid #1877f2"><div class="kpi-label">Clicks</div><div class="kpi-value" style="color:var(--t3)">—</div><div class="kpi-sub">No data</div><div class="kpi-delta neu">—</div></div>
+    <div class="kpi" style="border-top:2px solid #1877f2"><div class="kpi-label">CTR</div><div class="kpi-value" style="color:var(--t3)">—</div><div class="kpi-sub">No data</div><div class="kpi-delta neu">—</div></div>
+    <div class="kpi" style="border-top:2px solid #1877f2"><div class="kpi-label">CPM</div><div class="kpi-value" style="color:var(--t3)">—</div><div class="kpi-sub">No data</div><div class="kpi-delta neu">—</div></div>
+    <div class="kpi" style="border-top:2px solid #1877f2"><div class="kpi-label">Conversions</div><div class="kpi-value" style="color:var(--t3)">—</div><div class="kpi-sub">No data</div><div class="kpi-delta neu">—</div></div>
+    <div class="kpi" style="border-top:2px solid #1877f2"><div class="kpi-label">ROAS</div><div class="kpi-value" style="color:var(--t3)">—</div><div class="kpi-sub">No data</div><div class="kpi-delta neu">—</div></div>
+  </div>
+  <div class="card">
+    <div style="text-align:center;padding:32px 20px">
+      <div style="width:48px;height:48px;border-radius:50%;background:#e8f4ff;display:flex;align-items:center;justify-content:center;margin:0 auto 14px">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#1877f2" stroke-width="1.5"/><path d="M12 8v4M12 16h.01" stroke="#1877f2" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+      <div style="font-size:15px;font-weight:700;margin-bottom:8px">No active Meta campaigns found</div>
+      <div style="font-size:12px;color:var(--t3);line-height:1.8;max-width:480px;margin:0 auto">Account act_1961680314410145 is connected and verified via Supermetrics. No campaign data returned for the last 90 days.<br><br>Once campaigns are launched, all metrics will appear here automatically.</div>
+    </div>
+  </div>
+  <div class="card">
+    <div style="background:#0a1929;border-radius:8px;padding:16px 18px">
+      <div style="font-size:9px;font-weight:700;letter-spacing:2px;color:#1877f2;text-transform:uppercase;margin-bottom:12px">Recommended campaigns to launch first</div>
+      <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;font-size:11px;color:#ccc;line-height:1.6"><div style="width:5px;height:5px;border-radius:50%;background:#1877f2;flex-shrink:0;margin-top:5px"></div><span><strong style="color:#fff">Retargeting — Website visitors:</strong> Target fairmont.com/bangkok-sukhumvit visitors. Highest ROAS potential for a new property.</span></div>
+      <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;font-size:11px;color:#ccc;line-height:1.6"><div style="width:5px;height:5px;border-radius:50%;background:#1877f2;flex-shrink:0;margin-top:5px"></div><span><strong style="color:#fff">Awareness — Luxury travellers TH/SG/HK:</strong> Instagram Feed and Reels with rooftop and spa visuals to build brand recognition in core source markets.</span></div>
+      <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;font-size:11px;color:#ccc;line-height:1.6"><div style="width:5px;height:5px;border-radius:50%;background:#1877f2;flex-shrink:0;margin-top:5px"></div><span><strong style="color:#fff">Lookalike — Past guests:</strong> Build from Fairmont Gold member email list or CRM data for high-intent prospecting.</span></div>
+      <div style="display:flex;gap:10px;align-items:flex-start;font-size:11px;color:#ccc;line-height:1.6"><div style="width:5px;height:5px;border-radius:50%;background:#1877f2;flex-shrink:0;margin-top:5px"></div><span><strong style="color:#fff">Conversion — Direct booking:</strong> Target warm audiences with a direct booking offer. Enable Meta Pixel conversion tracking on fairmont.com first.</span></div>
     </div>
   </div>
 </div>
-
-<div class="footer">FAIRMONT BANGKOK SUKHUMVIT &nbsp;·&nbsp; WEEKLY SEO DASHBOARD &nbsp;·&nbsp; CONFIDENTIAL &nbsp;·&nbsp; DATA: SEARCH CONSOLE + MANUAL SERP</div>
+<div class="footer">FAIRMONT BANGKOK SUKHUMVIT &nbsp;·&nbsp; SEO + MEDIA DASHBOARD &nbsp;·&nbsp; CONFIDENTIAL &nbsp;·&nbsp; DATA: SUPERMETRICS + SEARCH CONSOLE + MANUAL SERP</div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 /* ── TABS ── */
 function showTab(id,btn){
   document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on');});
@@ -928,8 +987,118 @@ function loadState(){
   }catch(e){}
 }
 
-/* ── GOOGLE ADS CHART ── */
-new Chart(document.getElementById('gSpendChart'),{type:'line',data:{labels:['Mar 1','Mar 5','Mar 9','Mar 13','Mar 17','Mar 21','Mar 23'],datasets:[{label:'SEM',data:[12,14,11,16,18,15,12],borderColor:'#4285f4',backgroundColor:'rgba(66,133,244,0.08)',borderWidth:2,pointRadius:3,fill:true,tension:0.4},{label:'PMAX',data:[16,18,17,19,20,18,14],borderColor:'#34a853',backgroundColor:'rgba(52,168,83,0.08)',borderWidth:2,pointRadius:3,fill:true,tension:0.4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:10,family:'Montserrat'}}}},scales:{x:{ticks:{color:'#7f7f7f',font:{size:9,family:'Montserrat'}},grid:{display:false}},y:{ticks:{color:'#7f7f7f',font:{size:9,family:'Montserrat'},callback:function(v){return'฿'+v+'K';}},grid:{color:'#f0f0f0'}}}}});
+/* gSpendChart removed — canvas no longer in Google Ads tab */
+
+/* reloadGAData removed */
+
+
+/* ── GOOGLE ADS DATE PICKER ── */
+var calDate = new Date(2026,2,1); // Mar 2026
+var selStart = null, selEnd = null, picking = false;
+var activePreset = 'last_30_days';
+
+function toggleDatePicker(){
+  try{
+    var dp = document.getElementById('ga-datepicker');
+    if(!dp) return;
+    var visible = dp.style.display !== 'none';
+    if(visible){ closeDatePicker(); } else { dp.style.display='block'; renderCal(); }
+  }catch(e){ console.warn('datepicker error',e); }
+}
+function closeDatePicker(){
+  var dp = document.getElementById('ga-datepicker');
+  if(dp) dp.style.display='none';
+}
+// Close on outside click
+document.addEventListener('click', function(e){
+  var wrap = document.getElementById('ga-datepicker-wrap');
+  if(wrap && !wrap.contains(e.target)){
+    var dp = document.getElementById('ga-datepicker');
+    if(dp) dp.style.display='none';
+  }
+});
+
+function calNav(dir){
+  calDate = new Date(calDate.getFullYear(), calDate.getMonth()+dir, 1);
+  renderCal();
+}
+
+function renderCal(){
+  var grid = document.getElementById('cal-grid');
+  var lbl = document.getElementById('cal-month-label');
+  if(!grid||!lbl) return;
+  var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  lbl.textContent = months[calDate.getMonth()]+' '+calDate.getFullYear();
+  var firstDay = new Date(calDate.getFullYear(), calDate.getMonth(), 1).getDay();
+  var daysInMonth = new Date(calDate.getFullYear(), calDate.getMonth()+1, 0).getDate();
+  var today = new Date(); today.setHours(0,0,0,0);
+  var html = '';
+  for(var i=0;i<firstDay;i++) html += '<div></div>';
+  for(var d=1;d<=daysInMonth;d++){
+    var dt = new Date(calDate.getFullYear(), calDate.getMonth(), d);
+    var cls = 'cal-day';
+    if(dt.getTime()===today.getTime()) cls+=' today';
+    if(selStart && dt.getTime()===selStart.getTime()) cls+=' selected';
+    if(selEnd && dt.getTime()===selEnd.getTime()) cls+=' selected';
+    if(selStart && selEnd && dt>selStart && dt<selEnd) cls+=' in-range';
+    if(dt>today) cls+=' disabled';
+    var ts = dt.getTime();
+    html += '<button class="'+cls+'" onclick="calClick('+ts+')"'+(dt>today?' disabled':'')+'>'+d+'</button>';
+  }
+  grid.innerHTML = html;
+}
+
+function calClick(ts){
+  var dt = new Date(ts);
+  if(!picking || (selStart && selEnd)){
+    selStart = dt; selEnd = null; picking = true;
+  } else {
+    if(dt < selStart){ selEnd = selStart; selStart = dt; }
+    else { selEnd = dt; }
+    picking = false;
+  }
+  updateCalLabels();
+  renderCal();
+  try{ document.querySelectorAll('.preset-btn').forEach(function(b){ b.classList.remove('preset-active'); }); }catch(e){}
+}
+
+function updateCalLabels(){
+  var fl = document.getElementById('cal-from-lbl');
+  var tl = document.getElementById('cal-to-lbl');
+  var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  if(fl) fl.textContent = selStart ? (selStart.getDate()+' '+months[selStart.getMonth()]+' '+selStart.getFullYear()) : '—';
+  if(tl) tl.textContent = selEnd ? (selEnd.getDate()+' '+months[selEnd.getMonth()]+' '+selEnd.getFullYear()) : '—';
+}
+
+function applyPreset(key, label){
+  try{
+    document.querySelectorAll('.preset-btn').forEach(function(b){ b.classList.remove('preset-active'); });
+    var btn = document.getElementById('preset-'+key);
+    if(btn) btn.classList.add('preset-active');
+  }catch(e){}
+  activePreset = key;
+  var rl = document.getElementById('ga-range-label');
+  if(rl) rl.textContent = label;
+  closeDatePicker();
+  selStart = null; selEnd = null;
+  updateGADateNote(label);
+  try{ localStorage.setItem('fbk_ga_range', key); localStorage.setItem('fbk_ga_label', label); }catch(e){}
+}
+
+function applyCustomRange(){
+  if(!selStart || !selEnd){ alert('Please select a start and end date'); return; }
+  var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var label = selStart.getDate()+' '+months[selStart.getMonth()]+' – '+selEnd.getDate()+' '+months[selEnd.getMonth()]+' '+selEnd.getFullYear();
+  document.getElementById('ga-range-label').textContent = label;
+  closeDatePicker();
+  updateGADateNote(label);
+  try{ localStorage.setItem('fbk_ga_label', label); }catch(e){}
+}
+
+function updateGADateNote(label){
+  var note = document.getElementById('ga-kpi-spend-sub');
+  if(note) note.textContent = label;
+}
 
 /* ── INIT ── */
 renderTopics(performing);
@@ -939,6 +1108,84 @@ renderPrompts('feature','prompts-feature');
 renderPrompts('local','prompts-local');
 renderPrompts('brand','prompts-brand');
 loadState();
+
+/* ── DATE PICKER ── */
+(function(){
+  var dpDate = new Date(2026,2,1);
+  var dpFrom = null, dpTo = null, dpPicking = false;
+  var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+  window.toggleDatePicker = function(){
+    var dp = document.getElementById('ga-datepicker');
+    if(!dp) return;
+    if(dp.style.display==='none'||!dp.style.display){ dp.style.display='block'; dpRender(); }
+    else dpClose();
+  };
+  window.dpClose = function(){
+    var dp = document.getElementById('ga-datepicker');
+    if(dp) dp.style.display='none';
+  };
+  window.dpNav = function(d){
+    dpDate = new Date(dpDate.getFullYear(), dpDate.getMonth()+d, 1);
+    dpRender();
+  };
+  window.applyPreset = function(key, label){
+    document.querySelectorAll('.dpre-btn').forEach(function(b){ b.classList.remove('dpre-active'); });
+    var b = document.getElementById('pre-'+key);
+    if(b) b.classList.add('dpre-active');
+    var el = document.getElementById('ga-range-label');
+    if(el) el.textContent = label;
+    dpFrom = null; dpTo = null; dpPicking = false;
+    dpClose();
+    try{ localStorage.setItem('fbk_ga_label', label); }catch(e){}
+  };
+  window.dpApply = function(){
+    if(!dpFrom||!dpTo){ return; }
+    var label = dpFrom.getDate()+' '+MONTHS[dpFrom.getMonth()]+' – '+dpTo.getDate()+' '+MONTHS[dpTo.getMonth()]+' '+dpTo.getFullYear();
+    var el = document.getElementById('ga-range-label');
+    if(el) el.textContent = label;
+    dpClose();
+    try{ localStorage.setItem('fbk_ga_label', label); }catch(e){}
+  };
+  function dpRender(){
+    var grid = document.getElementById('dp-grid');
+    var lbl  = document.getElementById('dp-month-lbl');
+    if(!grid||!lbl) return;
+    lbl.textContent = MONTHS[dpDate.getMonth()]+' '+dpDate.getFullYear();
+    var first = new Date(dpDate.getFullYear(), dpDate.getMonth(), 1).getDay();
+    var days  = new Date(dpDate.getFullYear(), dpDate.getMonth()+1, 0).getDate();
+    var today = new Date(); today.setHours(0,0,0,0);
+    var html  = '';
+    for(var i=0;i<first;i++) html+='<div></div>';
+    for(var d=1;d<=days;d++){
+      var dt = new Date(dpDate.getFullYear(), dpDate.getMonth(), d);
+      var cls = 'dp-day';
+      if(dt.toDateString()===today.toDateString()) cls+=' dp-today';
+      if(dpFrom && dt.toDateString()===dpFrom.toDateString()) cls+=' dp-sel';
+      if(dpTo   && dt.toDateString()===dpTo.toDateString())   cls+=' dp-sel';
+      if(dpFrom && dpTo && dt>dpFrom && dt<dpTo) cls+=' dp-range';
+      var dis = dt>today ? ' disabled' : '';
+      html += '<button class="'+cls+'"'+dis+' onclick="dpClick('+dt.getTime()+')">'+d+'</button>';
+    }
+    grid.innerHTML = html;
+    var fl=document.getElementById('dp-from');
+    var tl=document.getElementById('dp-to');
+    if(fl) fl.textContent = dpFrom ? dpFrom.getDate()+' '+MONTHS[dpFrom.getMonth()]+' '+dpFrom.getFullYear() : '—';
+    if(tl) tl.textContent = dpTo   ? dpTo.getDate()  +' '+MONTHS[dpTo.getMonth()]  +' '+dpTo.getFullYear()   : '—';
+  }
+  window.dpClick = function(ts){
+    var dt = new Date(ts);
+    if(!dpPicking||(dpFrom&&dpTo)){ dpFrom=dt; dpTo=null; dpPicking=true; }
+    else { if(dt<dpFrom){dpTo=dpFrom;dpFrom=dt;}else{dpTo=dt;} dpPicking=false; }
+    document.querySelectorAll('.dpre-btn').forEach(function(b){ b.classList.remove('dpre-active'); });
+    dpRender();
+  };
+  document.addEventListener('click', function(e){
+    var w = document.getElementById('ga-datepicker-wrap');
+    if(w && !w.contains(e.target)) dpClose();
+  });
+})();
+
 </script>
 </body>
 </html>
