@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1160,6 +1162,72 @@ function copyPromptBtn(btn,text){
   navigator.clipboard.writeText(text).catch(function(){});
   btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy prompt';},1500);
 }
+
+function saveState(){
+  try{
+    localStorage.setItem('fbk_trk', JSON.stringify(TRK_STATE));
+    localStorage.setItem('fbk_trk_week', String(TRK_WEEK));
+    var tasks=[];
+    document.querySelectorAll('.action-row').forEach(function(r){
+      tasks.push(r.classList.contains('done')?'1':'0');
+    });
+    localStorage.setItem('fbk_tasks', tasks.join(','));
+    localStorage.setItem('fbk_tab', document.querySelector('.tab.on') ? document.querySelector('.tab.on').textContent.trim() : '');
+  }catch(e){}
+}
+
+function loadState(){
+  try{
+    var wk=localStorage.getItem('fbk_trk_week');
+    if(wk) TRK_WEEK=parseInt(wk);
+    var trk=localStorage.getItem('fbk_trk');
+    if(trk) TRK_STATE=JSON.parse(trk);
+    trkRender();
+    var tabs=document.querySelectorAll('#trk-week-tabs button');
+    for(var t=0;t<tabs.length;t++){
+      var active=parseInt(tabs[t].getAttribute('data-w'))===TRK_WEEK;
+      tabs[t].style.background=active?'#0a0a0a':'var(--surface)';
+      tabs[t].style.color=active?'#fff':'var(--text)';
+      tabs[t].style.borderColor=active?'#0a0a0a':'var(--border2)';
+    }
+    var tasks=localStorage.getItem('fbk_tasks');
+    if(tasks){
+      var arr=tasks.split(',');
+      document.querySelectorAll('.action-row').forEach(function(r,i){
+        if(arr[i]==='1'){
+          r.classList.add('done');
+          r.querySelector('.chk').classList.add('on');
+        }
+      });
+      var all=document.querySelectorAll('.action-row').length;
+      var done=document.querySelectorAll('.action-row.done').length;
+      var pct=Math.round(done/all*100);
+      var pf=document.getElementById('prog-fill');
+      var pl=document.getElementById('prog-label');
+      var kp=document.getElementById('kpi-pct');
+      var kc=document.getElementById('kpi-count');
+      if(pf)pf.style.width=pct+'%';
+      if(pl)pl.textContent=done+' / '+all+' complete';
+      if(kp)kp.textContent=pct+'%';
+      if(kc)kc.textContent=done+' of '+all;
+    }
+    var savedTab=localStorage.getItem('fbk_tab');
+    if(savedTab){
+      document.querySelectorAll('.tab').forEach(function(btn){
+        if(btn.textContent.trim()===savedTab){ btn.click(); }
+      });
+    }
+  }catch(e){}
+}
+
+/* ── INIT ── */
+renderTopics(performing);
+renderPrompts('discovery','prompts-discovery');
+renderPrompts('comparison','prompts-comparison');
+renderPrompts('feature','prompts-feature');
+renderPrompts('local','prompts-local');
+renderPrompts('brand','prompts-brand');
+loadState();
 
 
 
